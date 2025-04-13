@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./App.css";
 import Loading from "./components/Loading";
+import { useRecoilState } from "recoil";
+import { loadingProgressState } from "./store";
 
 function App() {
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useRecoilState(loadingProgressState);
 
-  if(true){
+  if(progress < 100){
     return <Loading />
   }
 
