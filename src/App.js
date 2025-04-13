@@ -1,6 +1,14 @@
+import { useState } from "react";
 import "./App.css";
+import Loading from "./components/Loading";
 
 function App() {
+  const [progress, setProgress] = useState(0);
+
+  if(true){
+    return <Loading />
+  }
+
   return (
     <>
       {/* HEADER : 링크 올바르게 수정해주세요. */}
