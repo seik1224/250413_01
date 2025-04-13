@@ -30,7 +30,11 @@ function App() {
               {
                 ['Home', 'About', 'Services', 'Contact'].map((v,i)=>(
                   <li key={v}>
-                    <Link to={i===0 ? "/" : v.toLowerCase()} className="hover:text-red-200">
+                    <Link
+                      to={i===0 ? "/" : v.toLowerCase()}
+                      className="hover:text-red-200"
+                      onClick={()=>window.scrollTo(0, 0)}
+                    >
                       {v}
                     </Link>
                   </li>
