@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Loading from "./components/Loading";
 import { useRecoilState } from "recoil";
@@ -11,6 +11,22 @@ import Contact from "./_views/Contact";
 
 function App() {
   const [progress, setProgress] = useRecoilState(loadingProgressState);
+  const [isHeaderVisible, setIsHeaderVisible ] = useState(true);
+
+  useEffect(()=>{
+    let lastScroll = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      console.log(`현재 : ${currentScroll} / 이전 : ${lastScroll}`);
+
+      setIsHeaderVisible(currentScroll < lastScroll || currentScroll < 10);
+      lastScroll = currentScroll;
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [])
 
   if(progress < 100){
     return <Loading />
@@ -20,7 +36,9 @@ function App() {
     <>
       {/* HEADER : 링크 올바르게 수정해주세요. */}
       <header
-        className={`fixed top-0 left-0 w-full z-50 text-white shadow-md transition-all duration-300`}
+        className={`fixed top-0 left-0 w-full z-50 text-white shadow-md transition-all duration-300
+          ${isHeaderVisible ? "translate-y-0" : '-translate-y-full'}
+        `}
         style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/nav.png)` }}
       >
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
